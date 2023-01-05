@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import RegisterPanel from "./component/Register/RegisterPanel";
+import UserListPanel from "./component/UserList/UserListPanel";
+const DUMMY_USERS = [
+  {
+    id: "1",
+    username: "abc",
+    age: 100,
+  },
+];
 
+const MAX_AGE = 50;
 function App() {
+  const [users, setUsers] = useState(DUMMY_USERS);
+  const addUserHandler = (user) => {
+    setUsers((prevUsers) => {
+      return [...prevUsers, user];
+
+      //Adds to end of expenses list
+      //return [...prevExpenses, expense];
+    });
+  };
+  console.log("App:");
+  console.log(users);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <RegisterPanel arr={users} maxAge={MAX_AGE}
+      onAddUser={addUserHandler}/>
+      <UserListPanel arr={users}/>
+    </div>    
   );
 }
 
